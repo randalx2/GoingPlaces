@@ -120,29 +120,36 @@ namespace GoingPlaces.Controllers
                 //If we found some photos based on tags return at least 12
                 if (photos.Count > 0)
                 {
+                    int counter = 0;
                     //3 photos per image object
                     for (int j = 0; j < 4; j++)
                     {
-                        for (int i = 0; i < 12; i++)
+                        if(counter < photos.Count)
                         {
+                            myImageObject[j].Description1 = "Description: " + photos[counter].Description + "\n Date Uploaded: " + photos[counter].DateUploaded +
+                                                       "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
+                                                       "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
-                            myImageObject[j].Description1 = "Description: " + photos[i].Description + "\n Date Uploaded: " + photos[i].DateUploaded +
-                                                        "\n Date Taken: " + photos[i].DateTaken + "\n Place ID: " + photos[i].PlaceId +
-                                                        "\n Latitude: " + photos[i].Latitude + "\n Longitude: " + photos[i].Longitude;
+                            myImageObject[j].Image1 = ImageToArray(photos[counter].LargeUrl);
+                            ++counter;
 
-                            myImageObject[j].Image1 = ImageToArray(photos[i].LargeUrl);
+                            myImageObject[j].Description2 = "Description: " + photos[counter].Description + "\n Date Uploaded: " + photos[counter].DateUploaded +
+                                                    "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
+                                                    "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
-                            myImageObject[j].Description2 = "Description: " + photos[i + 1].Description + "\n Date Uploaded: " + photos[i + 1].DateUploaded +
-                                                    "\n Date Taken: " + photos[i + 1].DateTaken + "\n Place ID: " + photos[i + 1].PlaceId +
-                                                    "\n Latitude: " + photos[i + 1].Latitude + "\n Longitude: " + photos[i + 1].Longitude;
+                            myImageObject[j].Image2 = ImageToArray(photos[counter].LargeUrl);
+                            ++counter;
 
-                            myImageObject[j].Image2 = ImageToArray(photos[i + 1].LargeUrl);
+                            myImageObject[j].Description3 = "Description: " + photos[counter].Description + "\n Date Uploaded: " + photos[counter].DateUploaded +
+                                                    "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
+                                                    "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
-                            myImageObject[j].Description3 = "Description: " + photos[i + 2].Description + "\n Date Uploaded: " + photos[i + 2].DateUploaded +
-                                                    "\n Date Taken: " + photos[i + 2].DateTaken + "\n Place ID: " + photos[i + 2].PlaceId +
-                                                    "\n Latitude: " + photos[i + 2].Latitude + "\n Longitude: " + photos[i + 2].Longitude;
-
-                            myImageObject[j].Image3 = ImageToArray(photos[i + 2].LargeUrl);
+                            myImageObject[j].Image3 = ImageToArray(photos[counter].LargeUrl);
+                            ++counter;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
 
