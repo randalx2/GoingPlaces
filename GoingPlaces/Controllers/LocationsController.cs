@@ -18,6 +18,8 @@ namespace GoingPlaces.Controllers
         private GoingPlacesContext db = new GoingPlacesContext();
 
         // GET: api/Locations
+        [Route("")]
+        [HttpGet]
         public IQueryable<Location> GetLocations()
         {
             return db.Locations;
@@ -25,6 +27,9 @@ namespace GoingPlaces.Controllers
 
         // GET: api/Locations/5
         [ResponseType(typeof(Location))]
+        [ResponseType(typeof(Location))]
+        [Route("{id:int}")]
+        [HttpGet]
         public async Task<IHttpActionResult> GetLocation(int id)
         {
             Location location = await db.Locations.FindAsync(id);
@@ -34,6 +39,18 @@ namespace GoingPlaces.Controllers
             }
 
             return Ok(location);
+        }
+
+        // GET: api/Locations/5
+        [ResponseType(typeof(Location))]
+        [Route("{name}")]
+        [HttpGet]
+        public IEnumerable<Location> GetLocationByName(string name)
+        {
+            //Get the first contact in the contacts list with the specified id
+            Location[] locationArray = db.Locations.Where<Location>(c => c.Name.Contains(name)).ToArray();
+
+            return locationArray;
         }
 
         // PUT: api/Locations/5
@@ -51,6 +68,14 @@ namespace GoingPlaces.Controllers
             }
 
             db.Entry(location).State = EntityState.Modified;
+            Location newlocation = db.Locations.FirstOrDefault<Location>(c => c.Id == id);
+
+            if (location != null)
+            {
+                location.Name = newlocation.Name;
+                location.Latitude = newlocation.Latitude;
+                location.Longitude = newlocation.Longitude;
+            }
 
             try
             {
@@ -68,7 +93,8 @@ namespace GoingPlaces.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            //return StatusCode(HttpStatusCode.NoContent);
+            return Ok(location);
         }
 
         // POST: api/Locations
@@ -83,7 +109,8 @@ namespace GoingPlaces.Controllers
             db.Locations.Add(location);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = location.Id }, location);
+            //return CreatedAtRoute("DefaultApi", new { id = location.Id }, location);
+            return Ok(location);
         }
 
         // DELETE: api/Locations/5
