@@ -13,6 +13,7 @@ using GoingPlaces.Models;
 
 namespace GoingPlaces.Controllers
 {
+    [RoutePrefix("api/Locations")]
     public class LocationsController : ApiController
     {
         private GoingPlacesContext db = new GoingPlacesContext();
@@ -26,7 +27,6 @@ namespace GoingPlaces.Controllers
         }
 
         // GET: api/Locations/5
-        [ResponseType(typeof(Location))]
         [ResponseType(typeof(Location))]
         [Route("{id:int}")]
         [HttpGet]
@@ -55,6 +55,7 @@ namespace GoingPlaces.Controllers
 
         // PUT: api/Locations/5
         [ResponseType(typeof(void))]
+        [HttpPut]
         public async Task<IHttpActionResult> PutLocation(int id, Location location)
         {
             if (!ModelState.IsValid)
@@ -99,6 +100,7 @@ namespace GoingPlaces.Controllers
 
         // POST: api/Locations
         [ResponseType(typeof(Location))]
+        [HttpPost]
         public async Task<IHttpActionResult> PostLocation(Location location)
         {
             if (!ModelState.IsValid)
@@ -115,6 +117,7 @@ namespace GoingPlaces.Controllers
 
         // DELETE: api/Locations/5
         [ResponseType(typeof(Location))]
+        [HttpDelete]
         public async Task<IHttpActionResult> DeleteLocation(int id)
         {
             Location location = await db.Locations.FindAsync(id);
