@@ -121,11 +121,12 @@ namespace GoingPlaces.Controllers
                 {
                     int counter = 0;
                     //3 photos per image object
+                    
                     for (int j = 0; j < 4; j++)
                     {
                         if(counter < photos.Count)
                         {
-                            myImageObject[j].Description1 = "Description: " + photos[counter].Description + "\n Date Uploaded: " + photos[counter].DateUploaded +
+                            myImageObject[j].Description1 = "Description: " + photos[counter].Title + "\n Date Uploaded: " + photos[counter].DateUploaded +
                                                        "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
                                                        "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
@@ -133,7 +134,7 @@ namespace GoingPlaces.Controllers
                             ++counter;
                             if (counter >= photos.Count) break;
 
-                            myImageObject[j].Description2 = "Description: " + photos[counter].Description + "\n Date Uploaded: " + photos[counter].DateUploaded +
+                            myImageObject[j].Description2 = "Description: " + photos[counter].Title + "\n Date Uploaded: " + photos[counter].DateUploaded +
                                                     "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
                                                     "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
@@ -141,7 +142,7 @@ namespace GoingPlaces.Controllers
                             ++counter;
                             if (counter >= photos.Count) break;
 
-                            myImageObject[j].Description3 = "Description: " + photos[counter].Description + "\n Date Uploaded: " + photos[counter].DateUploaded +
+                            myImageObject[j].Description3 = "Description: " + photos[counter].Title + "\n Date Uploaded: " + photos[counter].DateUploaded +
                                                     "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
                                                     "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
@@ -160,14 +161,16 @@ namespace GoingPlaces.Controllers
                     foreach (Images image in myImageObject)
                     {
                         myImageList.Add(image);
+                        //db.Images.Add(image);
                     }
 
                     //Convert back to an array
                     ImageArray = myImageList.ToArray<Images>();
-
                 }
-
             }
+
+            //Save to images table in the db
+            //db.SaveChanges();
 
             return ImageArray;
         }
