@@ -73,7 +73,7 @@ namespace GoingPlaces.Controllers
         [ResponseType(typeof(Images))]
         [Route("{name}")]
         [HttpGet]
-        public IEnumerable<Images> GetImageByName(string name)
+        public IEnumerable<Images>GetImageByName(string name)
         {
             //Get the first contact in the contacts list with the specified id
             //Pass in the location name and check if the main image description contains it
@@ -92,8 +92,7 @@ namespace GoingPlaces.Controllers
 
             //This return all image objects including main description, landmark id and secondary images
             Images[] ImageArray = db.Images.Where<Images>(c => (c.Description1.Contains(name) || c.Description2.Contains(name) || c.Description3.Contains(name))).ToArray();
-
-
+            
             //If the location or any duplicate of it is not found in the ImageArray the array size count will be O
             //To make it easier convert this array to a list object for now
             List<Images> myImageList = ImageArray.ToList<Images>();
@@ -132,6 +131,7 @@ namespace GoingPlaces.Controllers
 
                             myImageObject[j].Image1 = ImageToArray(photos[counter].LargeUrl);
                             ++counter;
+                            if (counter >= photos.Count) break;
 
                             myImageObject[j].Description2 = "Description: " + photos[counter].Description + "\n Date Uploaded: " + photos[counter].DateUploaded +
                                                     "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
@@ -139,6 +139,7 @@ namespace GoingPlaces.Controllers
 
                             myImageObject[j].Image2 = ImageToArray(photos[counter].LargeUrl);
                             ++counter;
+                            if (counter >= photos.Count) break;
 
                             myImageObject[j].Description3 = "Description: " + photos[counter].Description + "\n Date Uploaded: " + photos[counter].DateUploaded +
                                                     "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
@@ -146,12 +147,15 @@ namespace GoingPlaces.Controllers
 
                             myImageObject[j].Image3 = ImageToArray(photos[counter].LargeUrl);
                             ++counter;
+                            if (counter >= photos.Count) break;
                         }
                         else
                         {
                             break;
                         }
                     }
+
+                    counter = 0;
 
                     foreach (Images image in myImageObject)
                     {

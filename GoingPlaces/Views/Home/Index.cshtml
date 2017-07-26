@@ -69,7 +69,9 @@
                 <td style="background-color: gray; color: white">Description Image 3</td>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+
+        </tbody>
     </table>
 </div>
 <br />
@@ -159,7 +161,7 @@
                 });
 
                 var i = 1;
-                $('#imageData tbody').remove();
+                $('#imageData').remove();
                 $('.gallery').remove();
                 $.getJSON("api/Images/" + $("#imageName").val()).done(function (data) {
                     $.each(data, function (key, item) {
