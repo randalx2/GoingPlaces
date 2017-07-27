@@ -84,50 +84,52 @@
 </div>
 
 <script type="text/javascript">
+    
     $(document).ready(function () {
         $.getJSON("api/Locations", function (result) {
             console.info(result);
         });
 
+   
         $.getJSON("api/Locations").done(function (data) {
             $.each(data, function (key, item) {
                 $('#location').append("<tr><td>" + item.Id + "</td>" + "<td>" + item.Name + "</td>" + "<td>" + item.Latitude + "</td>" + "<td>" + item.Longitude + "</td></tr>");
             });
         });
     });
+   
 
 
-    $(document).ready(function () {
-        $.getJSON("api/Images", function (result) {
-            console.info(result);
-        });
-
-        var i = 1;
-        $.getJSON("api/Images").done(function (data) {
-            $.each(data, function (key, item) {
- 
-                $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
-                    "<div class=\"desc\">" + item.Description1 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
-                document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image1;
-
-                i = i + 1;
-
-                $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
-                    "<div class=\"desc\">" + item.Description2 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
-                document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image2;
-
-                i = i + 1;
-
-                $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
-                    "<div class=\"desc\">" + item.Description3 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
-                document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image3;
-
-                i = i + 1;
+        $(document).ready(function () {
+            $.getJSON("api/Images", function (result) {
+                console.info(result);
             });
-        });
-    });
-
-
+          
+                var i = 1;
+                $.getJSON("api/Images").done(function (data) {
+                    $.each(data, function (key, item) {
+         
+                        $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
+                            "<div class=\"desc\">" + item.Description1 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
+                        document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image1;
+        
+                        i = i + 1;
+        
+                        $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
+                            "<div class=\"desc\">" + item.Description2 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
+                        document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image2;
+        
+                        i = i + 1;
+        
+                        $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
+                            "<div class=\"desc\">" + item.Description3 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
+                        document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image3;
+        
+                        i = i + 1;
+                    });
+                });
+            });
+            
 
             function searchLocation() {
                 $.ajax({
@@ -161,7 +163,7 @@
                 $('.gallery').remove();
                 $.getJSON("api/Images/" + $("#imageName").val()).done(function (data) {
                     $.each(data, function (key, item) {
-                       
+
                         $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
                             "<div class=\"desc\">" + item.Description1 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
                         document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image1;
@@ -230,6 +232,6 @@
                         console.info(result);
                     }
                 });
-        }
+            }
 </script>
 
