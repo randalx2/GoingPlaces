@@ -201,6 +201,8 @@
     <Compile Include="Models\GoingPlacesContext.cs" />
     <Compile Include="Models\Images.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\LocationDetailDTO.cs" />
+    <Compile Include="Models\LocationDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

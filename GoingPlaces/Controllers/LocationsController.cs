@@ -19,6 +19,7 @@ namespace GoingPlaces.Controllers
     {
         private GoingPlacesContext db = new GoingPlacesContext();
 
+        
         // GET: api/Locations
         [Route("")]
         [HttpGet]
@@ -26,7 +27,28 @@ namespace GoingPlaces.Controllers
         {
             return db.Locations;
         }
+        
+        /*
+        //Replacing with DTOs
+        [Route("")]
+        [HttpGet]
+        public IQueryable<LocationDTO> GetLocations()
+        {
+            var locations = from b in db.Locations
+                        select new LocationDTO()
+                        {
+                            Id = b.Id,
+                            Name = b.Name,
+                            //AuthorName = b.Author.Name
+                            Latitude = b.Latitude,
+                            Longitude = b.Longitude
+                        };
 
+            return locations;
+        }
+        */
+
+        
         // GET: api/Locations/5
         [ResponseType(typeof(Location))]
         [Route("{id:int}")]
@@ -41,7 +63,33 @@ namespace GoingPlaces.Controllers
 
             return Ok(location);
         }
+        
+        /*
+        [ResponseType(typeof(LocationDetailDTO))]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetLocation(int id)
+        {
+            var location = await db.Locations.Include(b => b.Name).Select(b =>
+            new LocationDetailDTO()
+            {
+                Id = b.Id,
+                Name = b.Name,
+                Latitude = b.Longitude,
+                Longitude = b.Longitude,
+            }).SingleOrDefaultAsync(b => b.Id == id);
 
+            if (location == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(location);
+        }
+        */
+
+        //Replacing with DTOs
+
+        /*
         // GET: api/Locations/5
         [ResponseType(typeof(Location))]
         [Route("{name}")]
@@ -98,6 +146,7 @@ namespace GoingPlaces.Controllers
             //return StatusCode(HttpStatusCode.NoContent);
             return Ok(location);
         }
+        */
 
         // POST: api/Locations
         [ResponseType(typeof(Location))]
