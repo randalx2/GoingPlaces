@@ -8,8 +8,7 @@
     <div class="row">
         <div class="col-md-4">
             <h2>Location Search</h2>
-            <p>Search location by ID or Name. The location table will be filtered for saved locations.</p>
-            <p>If your location is not found in our database, we will attempt to get data from flickr and update accordingly</p>
+            <p>Search location by ID or Name. The location table will be filtered for saved locations in the Database.</p>
             <input type="text" id="searchID" />  Location Name or ID<br /><br />
             <button onclick="searchLocation()">Search For Location by ID or Name</button>
 
@@ -32,6 +31,7 @@
         <div class="col-md-4">
             <h2>Image Search</h2>
             <p>Enter the names of locations to filter through images in the database. If the corresponding image info is not found, we will search on flickr and update accordingly</p>
+            <p>Please be patient during this process as accessing image galleries on flickr can be a long task for retrieving larger images.</p>
             <input type="text" id="imageName" /> Image Location Name<br /><br />
             <button onclick="searchImages()">Image Search</button>
         </div>
@@ -51,14 +51,16 @@
                 <td style="background-color: gray; color:white">Longitude</td>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+
+        </tbody>
     </table>
 </div>
 
 <br />
 
-<div>
-    <h2>Display Image Data</h2>
+
+<!--<h2>Display Image Data</h2>
     <table id="imageData" cellpadding="2" cellspacing="2" border="1" width="545">
         <thead>
             <tr>
@@ -69,12 +71,9 @@
                 <td style="background-color: gray; color: white">Description Image 3</td>
             </tr>
         </thead>
-        <tbody>
-
-        </tbody>
-    </table>
-</div>
-<br />
+        <tbody></tbody>
+    </table> 
+<br />-->
 
 <div class="container"><h2>Retrieved Images</h2></div>
 <br />
@@ -83,7 +82,6 @@
 <div class="MyContainer">
     <!--Dynamic Javascript to fill the gallery here-->
 </div>
-
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -107,8 +105,7 @@
         var i = 1;
         $.getJSON("api/Images").done(function (data) {
             $.each(data, function (key, item) {
-                $('#imageData').append("<tr><td>" + item.Id + "</td>" + "<td>" + item.LocationId + "</td>" + "<td>" + item.Description1 + "</td>" + "<td>" + item.Description2 + "</td>" + "<td>" + item.Description3 + "</td></tr>");
-
+ 
                 $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
                     "<div class=\"desc\">" + item.Description1 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
                 document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image1;
@@ -161,12 +158,10 @@
                 });
 
                 var i = 1;
-                $('#imageData').remove();
                 $('.gallery').remove();
                 $.getJSON("api/Images/" + $("#imageName").val()).done(function (data) {
                     $.each(data, function (key, item) {
-                        $('#imageData').append("<tr><td>" + item.Id + "</td>" + "<td>" + item.LocationId + "</td>" + "<td>" + item.Description1 + "</td>" + "<td>" + item.Description2 + "</td>" + "<td>" + item.Description3 + "</td></tr>");;
-
+                       
                         $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
                             "<div class=\"desc\">" + item.Description1 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
                         document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image1;

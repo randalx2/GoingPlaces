@@ -13,6 +13,7 @@ using GoingPlaces.Models;
 using FlickrNet;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 
 namespace GoingPlaces.Controllers
 {
@@ -130,7 +131,7 @@ namespace GoingPlaces.Controllers
                                                        "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
                                                        "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
-                            myImageObject[j].Image1 = ImageToArray(photos[counter].LargeUrl);
+                            myImageObject[j].Image1 = ImageToArray(photos[counter].Small320Url);
                             ++counter;
                             if (counter >= photos.Count) break;
 
@@ -138,7 +139,7 @@ namespace GoingPlaces.Controllers
                                                     "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
                                                     "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
-                            myImageObject[j].Image2 = ImageToArray(photos[counter].LargeUrl);
+                            myImageObject[j].Image2 = ImageToArray(photos[counter].Small320Url);
                             ++counter;
                             if (counter >= photos.Count) break;
 
@@ -146,7 +147,7 @@ namespace GoingPlaces.Controllers
                                                     "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
                                                     "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
-                            myImageObject[j].Image3 = ImageToArray(photos[counter].LargeUrl);
+                            myImageObject[j].Image3 = ImageToArray(photos[counter].Small320Url);
                             ++counter;
                             if (counter >= photos.Count) break;
                         }
@@ -157,21 +158,22 @@ namespace GoingPlaces.Controllers
                     }
 
                     counter = 0;
-
+             
                     foreach (Images image in myImageObject)
-                    {
+                    {   
+                        image.LocationId = 1;
+                        db.Images.Add(image);
                         myImageList.Add(image);
-                        //db.Images.Add(image);
+                        db.Images.Add(image);
                     }
-
+                                                       
                     //Convert back to an array
                     ImageArray = myImageList.ToArray<Images>();
                 }
             }
 
             //Save to images table in the db
-            //db.SaveChanges();
-
+            db.SaveChanges();
             return ImageArray;
         }
 
