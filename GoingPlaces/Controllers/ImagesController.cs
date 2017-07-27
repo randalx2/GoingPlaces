@@ -158,13 +158,35 @@ namespace GoingPlaces.Controllers
                     }
 
                     counter = 0;
-             
+
                     foreach (Images image in myImageObject)
-                    {   
+                    {
+                        /*Location location = db.Locations.Where(c => c.Name.Contains(name)).FirstOrDefault<Location>();
+
+                        //If the location is not found
+                        if(location == null)
+                        {
+                            Location newLocation = new Location()
+                            {
+                                Name = name,
+                                Latitude = 0,
+                                Longitude = 0
+                            };
+
+                            image.LocationId = newLocation.Id;
+                            db.Locations.Add(newLocation);
+                            db.Images.Add(image);
+                            myImageList.Add(image);                           
+                        }
+                        else
+                        {
+                            //If the location name is present in the db
+
+                        }*/
+
                         image.LocationId = 1;
                         db.Images.Add(image);
                         myImageList.Add(image);
-                        db.Images.Add(image);
                     }
                                                        
                     //Convert back to an array
