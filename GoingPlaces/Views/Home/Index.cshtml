@@ -105,30 +105,7 @@
                 console.info(result);
             });
           
-                var i = 1;
-                $.getJSON("api/Images").done(function (data) {
-                    $.each(data, function (key, item) {
-         
-                        $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
-                            "<div class=\"desc\">" + item.Description1 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
-                        document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image1;
-        
-                        i = i + 1;
-        
-                        $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
-                            "<div class=\"desc\">" + item.Description2 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
-                        document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image2;
-        
-                        i = i + 1;
-        
-                        $('.MyContainer').append("<div class=\"gallery\">" + "<a target=\"#\" href=\"#\">" + "<img id=\"Image" + i + "\" src=\"\" width=\"300\" height=\"200\">" + "</a >" +
-                            "<div class=\"desc\">" + item.Description3 + "<span id=\"Description" + i + "\"></span></div>" + "</div>");
-                        document.getElementById("Image" + i).src = "data:image/jpg;base64," + item.Image3;
-        
-                        i = i + 1;
-                    });
-                });
-            });
+        });
             
 
             function searchLocation() {
