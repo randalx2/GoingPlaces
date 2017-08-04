@@ -109,90 +109,99 @@ namespace GoingPlaces.Controllers
                 new Images() { Id = -1, LocationId = -1, Description1 = "Image Not Found", Description2 = "Image Not Found", Description3 = "Image Not Found", Image1 = ImageToArrayDefault(), Image2 = ImageToArrayDefault(), Image3 = ImageToArrayDefault() },
             };
 
-            if (myImageList.Count <= 0)
+
+            try
             {
-                //Search for photos using the search option
-                //Search tags are set for a max of 3 photos per page
-                PhotoCollection photos = flickr.PhotosSearch(options);
-
-                //We should at least return 3 photos based on the tag
-
-                //If we found some photos based on tags return at least 12
-                if (photos.Count > 0)
+                if (myImageList.Count <= 0)
                 {
-                    int counter = 0;
-                    //3 photos per image object
-                    
-                    for (int j = 0; j < 4; j++)
+                    //Search for photos using the search option
+                    //Search tags are set for a max of 3 photos per page
+                    PhotoCollection photos = flickr.PhotosSearch(options);
+
+                    //We should at least return 3 photos based on the tag
+
+                    //If we found some photos based on tags return at least 12
+                    if (photos.Count > 0)
                     {
-                        if(counter < photos.Count)
+                        int counter = 0;
+                        //3 photos per image object
+
+                        for (int j = 0; j < 4; j++)
                         {
-                            myImageObject[j].Description1 = "Description: " + photos[counter].Title + "\n Date Uploaded: " + photos[counter].DateUploaded +
-                                                       "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
-                                                       "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
-
-                            myImageObject[j].Image1 = ImageToArray(photos[counter].Small320Url);
-                            ++counter;
-                            if (counter >= photos.Count) break;
-
-                            myImageObject[j].Description2 = "Description: " + photos[counter].Title + "\n Date Uploaded: " + photos[counter].DateUploaded +
-                                                    "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
-                                                    "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
-
-                            myImageObject[j].Image2 = ImageToArray(photos[counter].Small320Url);
-                            ++counter;
-                            if (counter >= photos.Count) break;
-
-                            myImageObject[j].Description3 = "Description: " + photos[counter].Title + "\n Date Uploaded: " + photos[counter].DateUploaded +
-                                                    "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
-                                                    "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
-
-                            myImageObject[j].Image3 = ImageToArray(photos[counter].Small320Url);
-                            ++counter;
-                            if (counter >= photos.Count) break;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-
-                    counter = 0;
-
-                    foreach (Images image in myImageObject)
-                    {
-                        /*Location location = db.Locations.Where(c => c.Name.Contains(name)).FirstOrDefault<Location>();
-
-                        //If the location is not found
-                        if(location == null)
-                        {
-                            Location newLocation = new Location()
+                            if (counter < photos.Count)
                             {
-                                Name = name,
-                                Latitude = 0,
-                                Longitude = 0
-                            };
+                                myImageObject[j].Description1 = "Description: " + photos[counter].Title + "\n Date Uploaded: " + photos[counter].DateUploaded +
+                                                           "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
+                                                           "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
 
-                            image.LocationId = newLocation.Id;
-                            db.Locations.Add(newLocation);
-                            db.Images.Add(image);
-                            myImageList.Add(image);                           
+                                myImageObject[j].Image1 = ImageToArray(photos[counter].Small320Url);
+                                ++counter;
+                                if (counter >= photos.Count) break;
+
+                                myImageObject[j].Description2 = "Description: " + photos[counter].Title + "\n Date Uploaded: " + photos[counter].DateUploaded +
+                                                        "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
+                                                        "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
+
+                                myImageObject[j].Image2 = ImageToArray(photos[counter].Small320Url);
+                                ++counter;
+                                if (counter >= photos.Count) break;
+
+                                myImageObject[j].Description3 = "Description: " + photos[counter].Title + "\n Date Uploaded: " + photos[counter].DateUploaded +
+                                                        "\n Date Taken: " + photos[counter].DateTaken + "\n Place ID: " + photos[counter].PlaceId +
+                                                        "\n Latitude: " + photos[counter].Latitude + "\n Longitude: " + photos[counter].Longitude;
+
+                                myImageObject[j].Image3 = ImageToArray(photos[counter].Small320Url);
+                                ++counter;
+                                if (counter >= photos.Count) break;
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
-                        else
+
+                        counter = 0;
+
+                        foreach (Images image in myImageObject)
                         {
-                            //If the location name is present in the db
+                            /*Location location = db.Locations.Where(c => c.Name.Contains(name)).FirstOrDefault<Location>();
 
-                        }*/
+                            //If the location is not found
+                            if(location == null)
+                            {
+                                Location newLocation = new Location()
+                                {
+                                    Name = name,
+                                    Latitude = 0,
+                                    Longitude = 0
+                                };
 
-                        image.LocationId = 1;
-                        db.Images.Add(image);
-                        myImageList.Add(image);
+                                image.LocationId = newLocation.Id;
+                                db.Locations.Add(newLocation);
+                                db.Images.Add(image);
+                                myImageList.Add(image);                           
+                            }
+                            else
+                            {
+                                //If the location name is present in the db
+
+                            }*/
+
+                            image.LocationId = 1;
+                            db.Images.Add(image);
+                            myImageList.Add(image);
+                        }
+
+                        //Convert back to an array
+                        ImageArray = myImageList.ToArray<Images>();
                     }
-                                                       
-                    //Convert back to an array
-                    ImageArray = myImageList.ToArray<Images>();
                 }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message + Environment.NewLine + "Your Internet Connection may be down");
+            }
+            
 
             //Save to images table in the db
             db.SaveChanges();
