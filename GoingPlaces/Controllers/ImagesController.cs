@@ -187,6 +187,7 @@ namespace GoingPlaces.Controllers
 
                             }*/
 
+                            //Due a bug with the navigation properties set the locationID to a default value to prototype and test
                             image.LocationId = 1;
                             db.Images.Add(image);
                             myImageList.Add(image);
